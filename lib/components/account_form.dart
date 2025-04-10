@@ -74,7 +74,7 @@ class _AccountFormState extends State<AccountForm> {
   // ignore: non_constant_identifier_names
   ElevatedButton ActionButton() {
     return ElevatedButton(
-      onPressed: widget.onClick,
+      onPressed: !widget.loading ? widget.onClick : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
         foregroundColor: Colors.blue,

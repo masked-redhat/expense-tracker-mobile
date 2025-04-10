@@ -15,6 +15,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? username;
   double? balance;
   bool loading = true;
+  bool reloading = false;
   Key transactionListKey = UniqueKey();
 
   @override
@@ -41,7 +42,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   void reloadTransactionList() {
     setState(() {
+      reloading = true;
       transactionListKey = UniqueKey();
+    });
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        reloading = false;
+      });
     });
   }
 
@@ -69,7 +76,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Column(
                 children: [
                   ElevatedButton(
-                    onPressed: reloadTransactionList,
+                    onPressed: !reloading ? reloadTransactionList : null,
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
                       backgroundColor: Colors.white,

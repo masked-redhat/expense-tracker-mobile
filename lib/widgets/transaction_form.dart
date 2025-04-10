@@ -113,7 +113,7 @@ class _TransactionFormState extends State<TransactionForm> {
   // ignore: non_constant_identifier_names
   ElevatedButton ActionButton() {
     return ElevatedButton(
-      onPressed: _submitForm,
+      onPressed: !loading ? _submitForm : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
         foregroundColor: Colors.blue,
