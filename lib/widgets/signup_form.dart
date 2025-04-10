@@ -1,4 +1,6 @@
 import 'package:expense_tracker_app/components/account_form.dart';
+import 'package:expense_tracker_app/services/api_service.dart';
+import 'package:expense_tracker_app/services/user_token_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,26 @@ class SignupForm extends StatefulWidget {
 }
 
 class _SignupForm extends State<SignupForm> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool loading = false;
+
+  Future<void> signup() async {
+    setState(() => loading = true);
+
+    final userToken = await signupUser(
+      _usernameController.text,
+      _passwordController.text,
+    );
+    if (userToken != null) {
+      await saveUserToken(userToken);
+    } else {
+      print("Not logged In");
+    }
+
+    setState(() => loading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +59,14 @@ class _SignupForm extends State<SignupForm> {
           ),
         ),
         SizedBox(height: 30),
-        AccountForm(onClick: () => {}, text: "Sign Up", checkUsername: true),
+        AccountForm(
+          onClick: signup,
+          text: "Sign Up",
+          checkUsername: true,
+          usernameController: _usernameController,
+          passwordController: _passwordController,
+          loading: loading,
+        ),
       ],
     );
   }

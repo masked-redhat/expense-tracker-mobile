@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:expense_tracker_app/components/loader.dart';
 import 'package:expense_tracker_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/components/password_field.dart';
@@ -7,12 +8,18 @@ class AccountForm extends StatefulWidget {
   final VoidCallback onClick;
   final String text;
   final bool checkUsername;
+  final TextEditingController usernameController;
+  final TextEditingController passwordController;
+  final bool loading;
 
   const AccountForm({
     super.key,
     required this.onClick,
     required this.text,
     this.checkUsername = false,
+    required this.usernameController,
+    required this.passwordController,
+    this.loading = false,
   });
 
   @override
@@ -20,8 +27,6 @@ class AccountForm extends StatefulWidget {
 }
 
 class _AccountFormState extends State<AccountForm> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   bool usernameAvailable = false;
   bool usernameIsNotEmpty = false;
   Timer? _debounce;
@@ -47,8 +52,8 @@ class _AccountFormState extends State<AccountForm> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
+    widget.usernameController.dispose();
+    widget.passwordController.dispose();
     _debounce?.cancel();
     super.dispose();
   }
@@ -59,7 +64,7 @@ class _AccountFormState extends State<AccountForm> {
       children: [
         UsernameField(),
         const SizedBox(height: 10),
-        PasswordField(controller: _passwordController),
+        PasswordField(controller: widget.passwordController),
         const SizedBox(height: 20),
         ActionButton(),
       ],
@@ -81,21 +86,24 @@ class _AccountFormState extends State<AccountForm> {
           borderRadius: BorderRadius.circular(6), // 🎯 Rounded corners
         ),
       ),
-      child: Text(
-        widget.text,
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 18,
-          letterSpacing: 1.8,
-        ),
-      ),
+      child:
+          widget.loading
+              ? Loader()
+              : Text(
+                widget.text,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
+                  letterSpacing: 1.8,
+                ),
+              ),
     );
   }
 
   // ignore: non_constant_identifier_names
   TextField UsernameField() {
     return TextField(
-      controller: _usernameController,
+      controller: widget.usernameController,
       onChanged: widget.checkUsername ? _checkUsername : null,
       decoration: InputDecoration(
         hintText: "Username",

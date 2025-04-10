@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:expense_tracker_app/constants/api.dart';
 import 'package:expense_tracker_app/models/transaction.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:expense_tracker_app/models/user.dart';
 
@@ -43,4 +44,36 @@ Future<bool> checkUsername(String username) async {
   );
 
   return res.statusCode == 200;
+}
+
+Future<String?> loginUser(String username, String password) async {
+  final res = await http.post(
+    Uri.parse('$baseUrl/$loginUrl'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({"username": username, "password": password}),
+  );
+
+  if (res.statusCode == 200) {
+    final json = jsonDecode(res.body);
+    return json['userToken'];
+  } else {
+    debugPrint("Login Failed");
+    return null;
+  }
+}
+
+Future<String?> signupUser(String username, String password) async {
+  final res = await http.post(
+    Uri.parse('$baseUrl/$signupUrl'),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({"username": username, "password": password}),
+  );
+
+  if (res.statusCode == 201) {
+    final json = jsonDecode(res.body);
+    return json['userToken'];
+  } else {
+    debugPrint("Signup Failed");
+    return null;
+  }
 }
