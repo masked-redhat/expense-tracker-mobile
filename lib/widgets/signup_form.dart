@@ -21,8 +21,8 @@ class _SignupForm extends State<SignupForm> {
     setState(() => loading = true);
 
     final userToken = await signupUser(
-      _usernameController.text,
-      _passwordController.text,
+      _usernameController.text.trim(),
+      _passwordController.text.trim(),
     );
     if (userToken != null) {
       await saveUserToken(userToken);
@@ -31,7 +31,10 @@ class _SignupForm extends State<SignupForm> {
 
       navigateToDashboard(context);
     } else {
-      print("Not logged In");
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Error signing up!')));
     }
 
     setState(() => loading = false);

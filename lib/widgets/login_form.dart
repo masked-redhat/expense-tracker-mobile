@@ -21,8 +21,8 @@ class _LoginForm extends State<LoginForm> {
     setState(() => loading = true);
 
     final userToken = await loginUser(
-      _usernameController.text,
-      _passwordController.text,
+      _usernameController.text.trim(),
+      _passwordController.text.trim(),
     );
     if (userToken != null) {
       await saveUserToken(userToken);
@@ -31,7 +31,10 @@ class _LoginForm extends State<LoginForm> {
 
       navigateToDashboard(context);
     } else {
-      print("Not logged In");
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Not logged in!')));
     }
 
     setState(() => loading = false);

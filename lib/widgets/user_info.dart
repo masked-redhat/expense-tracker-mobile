@@ -61,9 +61,12 @@ class UserBalanceCard extends StatelessWidget {
           child: IconButton(
             onPressed: () {
               showLogoutDialog(context, () async {
-                await logoutUser();
+                logoutUser();
                 await reset();
 
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Logged out succesfully!')),
+                );
                 Navigator.pushReplacementNamed(context, "/login");
               });
             },
