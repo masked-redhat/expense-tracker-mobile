@@ -1,3 +1,5 @@
+import 'package:expense_tracker_app/screens/dashboard_screen.dart';
+import 'package:expense_tracker_app/screens/initial_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:expense_tracker_app/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // 👈 REQUIRED before prefs or async ops
 
   final prefs = await SharedPreferences.getInstance(); // now safe
+
   runApp(const ExpenseTrackerApp());
 }
 
@@ -37,11 +40,12 @@ class ExpenseTrackerApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: "/",
       routes: {
-        "/": (context) => const LoginScreen(),
+        "/login": (context) => const LoginScreen(),
         "/signup": (context) => const SignupScreen(),
+        "/dashboard": (context) => const DashboardScreen(),
       },
+      home: InitialScreen(),
     );
   }
 }

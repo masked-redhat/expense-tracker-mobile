@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:expense_tracker_app/constants/api.dart';
 import 'package:expense_tracker_app/models/transaction.dart';
+import 'package:expense_tracker_app/services/user_token_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:expense_tracker_app/models/user.dart';
@@ -76,4 +77,20 @@ Future<String?> signupUser(String username, String password) async {
     debugPrint("Signup Failed");
     return null;
   }
+}
+
+Future<bool> validUserToken() async {
+  final token = await getUserToken();
+  if (token == null) {
+    return false;
+  }
+
+  print(token);
+
+  final res = await http.get(
+    Uri.parse('$baseUrl/$checkUserTokenUrl'),
+    headers: {'Authorization': 'Bearer $token'},
+  );
+
+  return res.statusCode == 200;
 }

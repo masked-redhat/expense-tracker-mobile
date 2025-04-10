@@ -5,3 +5,4 @@ final loginUrl = "login";
 final signupUrl = "signup";
 final logoutUrl = "logout";
 final checkUsernameUrl = "check-username";
+final checkUserTokenUrl = "check-token";

@@ -6,10 +6,10 @@ Future<void> saveUserToken(String token) async {
   print("Saved user token $token");
 }
 
-Future<String> getUserToken() async {
+Future<String?> getUserToken() async {
   final prefs = await SharedPreferences.getInstance();
-  final String? token = prefs.getString('user_token');
-  return token!;
+  final String? token = prefs.getString('userToken');
+  return token;
 }
 
 Future<void> reset() async {
