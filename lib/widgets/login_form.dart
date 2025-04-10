@@ -1,6 +1,7 @@
 import 'package:expense_tracker_app/components/account_form.dart';
 import 'package:expense_tracker_app/services/api_service.dart';
 import 'package:expense_tracker_app/services/user_token_service.dart';
+import 'package:expense_tracker_app/utils/navigate_dashboard.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,10 @@ class _LoginForm extends State<LoginForm> {
     );
     if (userToken != null) {
       await saveUserToken(userToken);
+
+      if (!mounted) return;
+
+      navigateToDashboard(context);
     } else {
       print("Not logged In");
     }
