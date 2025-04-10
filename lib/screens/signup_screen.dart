@@ -1,15 +1,15 @@
-import 'package:expense_tracker_app/widgets/login_form.dart';
+import 'package:expense_tracker_app/widgets/signup_form.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreen();
+  State<SignupScreen> createState() => _SignupScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
+class _SignupScreen extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class _LoginScreen extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(),
-              Padding(padding: EdgeInsets.all(32), child: LoginForm()),
+              Padding(padding: EdgeInsets.all(32), child: SignupForm()),
               Column(
                 children: [
                   Text("© Expense Tracker 2025", style: GoogleFonts.urbanist()),
