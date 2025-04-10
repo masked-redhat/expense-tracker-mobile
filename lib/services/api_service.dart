@@ -25,7 +25,8 @@ Future<List<Transaction>> getTransactionsData(String token) async {
   }
 }
 
-Future<User> getUserData(String token) async {
+Future<User?> getUserData() async {
+  final token = await getUserToken();
   final res = await http.get(
     Uri.parse('$baseUrl/$accountUrl'),
     headers: {'Authorization': 'Bearer $token'},
@@ -35,7 +36,7 @@ Future<User> getUserData(String token) async {
     final json = jsonDecode(res.body);
     return User.fromJson(json['user']);
   } else {
-    throw Exception('Failed to fetch user');
+    return null;
   }
 }
 
@@ -85,10 +86,18 @@ Future<bool> validUserToken() async {
     return false;
   }
 
-  print(token);
-
   final res = await http.get(
     Uri.parse('$baseUrl/$checkUserTokenUrl'),
+    headers: {'Authorization': 'Bearer $token'},
+  );
+
+  return res.statusCode == 200;
+}
+
+Future<bool> logoutUser() async {
+  final token = await getUserToken();
+  final res = await http.get(
+    Uri.parse('$baseUrl/$logoutUrl'),
     headers: {'Authorization': 'Bearer $token'},
   );
 
