@@ -15,7 +15,6 @@ Future<dynamic> getTransactionsData(int page) async {
 
   if (res.statusCode == 200) {
     final json = jsonDecode(res.body);
-    print(json);
     List<Transaction> transactions = [];
 
     for (var transaction in json['transactions']) {

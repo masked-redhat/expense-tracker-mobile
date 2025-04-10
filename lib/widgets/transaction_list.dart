@@ -78,7 +78,7 @@ class _TransactionList extends State<TransactionList> {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: bgColor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(5),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,

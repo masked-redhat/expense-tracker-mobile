@@ -15,6 +15,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? username;
   double? balance;
   bool loading = true;
+  Key transactionListKey = UniqueKey();
 
   @override
   void initState() {
@@ -34,11 +35,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
+  void reloadTransactionList() {
+    setState(() {
+      transactionListKey = UniqueKey();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child:
+        child: Stack(
+          children: [
             loading
                 ? Center(child: Loader())
                 : Padding(
@@ -47,10 +55,47 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     children: [
                       UserBalanceCard(username: username!, balance: balance!),
                       SizedBox(height: 10),
-                      Expanded(child: TransactionList()),
+                      Expanded(child: TransactionList(key: transactionListKey)),
                     ],
                   ),
                 ),
+            Positioned(
+              bottom: 32,
+              right: 20,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: reloadTransactionList,
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      elevation: 2,
+                      padding: const EdgeInsets.all(12),
+                    ),
+                    child: const Icon(Icons.refresh),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      // your action
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      elevation: 2,
+                      padding: const EdgeInsets.all(20),
+                    ),
+                    child: const Icon(Icons.add),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
