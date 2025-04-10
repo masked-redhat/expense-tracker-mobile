@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/screens/create_transaction_screen.dart';
 import 'package:expense_tracker_app/screens/dashboard_screen.dart';
 import 'package:expense_tracker_app/screens/initial_screen.dart';
 import 'package:expense_tracker_app/screens/signup_screen.dart';
@@ -41,6 +42,7 @@ class ExpenseTrackerApp extends StatelessWidget {
         "/login": (context) => const LoginScreen(),
         "/signup": (context) => const SignupScreen(),
         "/dashboard": (context) => const DashboardScreen(),
+        "/create-transaction": (context) => const CreateTransactionScreen(),
       },
       home: InitialScreen(),
     );

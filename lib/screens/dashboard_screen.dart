@@ -24,6 +24,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> setUserData() async {
+    setState(() {
+      loading = true;
+    });
+
     final user = await getUserData();
 
     if (user == null) return;
@@ -47,18 +51,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            loading
-                ? Center(child: Loader())
-                : Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      UserBalanceCard(username: username!, balance: balance!),
-                      SizedBox(height: 10),
-                      Expanded(child: TransactionList(key: transactionListKey)),
-                    ],
-                  ),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  loading
+                      ? Center(child: Loader())
+                      : UserBalanceCard(username: username!, balance: balance!),
+                  SizedBox(height: 10),
+                  Expanded(child: TransactionList(key: transactionListKey)),
+                ],
+              ),
+            ),
             Positioned(
               bottom: 32,
               right: 20,
@@ -78,7 +82,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      // your action
+                      Navigator.pushNamed(context, "/create-transaction").then((
+                        value,
+                      ) {
+                        if (value == null) return;
+                        setState(() {
+                          if (value is double) balance = value;
+                        });
+                        reloadTransactionList();
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

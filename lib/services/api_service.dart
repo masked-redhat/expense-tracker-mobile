@@ -26,6 +26,30 @@ Future<dynamic> getTransactionsData(int page) async {
   }
 }
 
+Future<double?> makeTransaction(
+  String message,
+  String type,
+  double value,
+) async {
+  final token = await getUserToken();
+  final res = await http.post(
+    Uri.parse('$baseUrl/$transactionUrl'),
+    headers: {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({"message": message, "value": value, "type": type}),
+  );
+
+  if (res.statusCode == 201) {
+    final json = jsonDecode(res.body);
+
+    return json['newBalance'].toDouble();
+  } else {
+    return null;
+  }
+}
+
 Future<User?> getUserData() async {
   final token = await getUserToken();
   final res = await http.get(
