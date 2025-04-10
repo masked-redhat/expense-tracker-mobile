@@ -30,8 +30,6 @@ class _TransactionFormState extends State<TransactionForm> {
         _type.toUpperCase(),
         value,
       );
-
-      if (newBalance == null) return;
       Navigator.pop(context, newBalance);
     }
 
