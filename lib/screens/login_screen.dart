@@ -12,22 +12,28 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox.expand(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(),
-              Padding(padding: EdgeInsets.all(32), child: LoginForm()),
-              Column(
-                children: [
-                  Text("© Expense Tracker 2025", style: GoogleFonts.urbanist()),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: SafeArea(
+          child: SizedBox.expand(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(),
+                Padding(padding: EdgeInsets.all(32), child: LoginForm()),
+                Column(
+                  children: [
+                    Text(
+                      "© Expense Tracker 2025",
+                      style: GoogleFonts.urbanist(),
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

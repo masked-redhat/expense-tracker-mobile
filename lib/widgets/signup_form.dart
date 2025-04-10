@@ -25,7 +25,7 @@ class _SignupForm extends State<SignupForm> {
             text: "Already have an account? ",
             children: [
               TextSpan(
-                text: "Login",
+                text: "Log In",
                 style: TextStyle(color: Colors.blue),
                 recognizer:
                     TapGestureRecognizer()
@@ -37,7 +37,7 @@ class _SignupForm extends State<SignupForm> {
           ),
         ),
         SizedBox(height: 30),
-        AccountForm(onClick: () => {}, text: "Sign Up"),
+        AccountForm(onClick: () => {}, text: "Sign Up", checkUsername: true),
       ],
     );
   }

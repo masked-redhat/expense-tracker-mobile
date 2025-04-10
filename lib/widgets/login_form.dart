@@ -37,7 +37,7 @@ class _LoginForm extends State<LoginForm> {
           ),
         ),
         SizedBox(height: 30),
-        AccountForm(onClick: () => {}, text: "Login"),
+        AccountForm(onClick: () => {}, text: "Log In"),
       ],
     );
   }
