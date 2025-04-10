@@ -36,3 +36,11 @@ Future<User> getUserData(String token) async {
     throw Exception('Failed to fetch user');
   }
 }
+
+Future<bool> checkUsername(String username) async {
+  final res = await http.get(
+    Uri.parse('$baseUrl/$checkUsernameUrl?username=$username'),
+  );
+
+  return res.statusCode == 200;
+}

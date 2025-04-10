@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:expense_tracker_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/components/password_field.dart';
 
@@ -25,6 +26,13 @@ class _AccountFormState extends State<AccountForm> {
   bool usernameIsNotEmpty = false;
   Timer? _debounce;
 
+  Future<void> updateUsernameAvailabe(value) async {
+    var available = await checkUsername(value);
+    setState(() {
+      usernameAvailable = available;
+    });
+  }
+
   void _checkUsername(String value) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
 
@@ -33,7 +41,7 @@ class _AccountFormState extends State<AccountForm> {
     });
 
     _debounce = Timer(const Duration(milliseconds: 300), () {
-      debugPrint("Final input: $value");
+      updateUsernameAvailabe(value);
     });
   }
 
