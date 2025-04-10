@@ -13,6 +13,12 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity != null &&
+            details.primaryVelocity! < -200) {
+          Navigator.pushNamed(context, "/signup");
+        }
+      },
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: SafeArea(

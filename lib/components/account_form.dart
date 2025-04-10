@@ -53,29 +53,34 @@ class _AccountFormState extends State<AccountForm> {
         const SizedBox(height: 10),
         PasswordField(controller: _passwordController),
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: widget.onClick,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black,
-            foregroundColor: Colors.grey,
-            minimumSize: const Size(
-              double.infinity,
-              55,
-            ), // 📐 Width: 200, Height: 60
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6), // 🎯 Rounded corners
-            ),
-          ),
-          child: Text(
-            widget.text,
-            style: TextStyle(
-              color: Colors.lightBlue,
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-            ),
-          ),
-        ),
+        ActionButton(),
       ],
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  ElevatedButton ActionButton() {
+    return ElevatedButton(
+      onPressed: widget.onClick,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.blue,
+        minimumSize: const Size(
+          double.infinity,
+          55,
+        ), // 📐 Width: 200, Height: 60
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6), // 🎯 Rounded corners
+        ),
+      ),
+      child: Text(
+        widget.text,
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+          letterSpacing: 1.8,
+        ),
+      ),
     );
   }
 
