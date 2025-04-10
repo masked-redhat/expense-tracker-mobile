@@ -1,5 +1,6 @@
 import 'package:expense_tracker_app/components/loader.dart';
 import 'package:expense_tracker_app/services/api_service.dart';
+import 'package:expense_tracker_app/widgets/transaction_list.dart';
 import 'package:expense_tracker_app/widgets/user_info.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +46,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Column(
                     children: [
                       UserBalanceCard(username: username!, balance: balance!),
+                      SizedBox(height: 10),
+                      Expanded(child: TransactionList()),
                     ],
                   ),
                 ),

@@ -6,22 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:expense_tracker_app/models/user.dart';
 
-Future<List<Transaction>> getTransactionsData(String token) async {
+Future<dynamic> getTransactionsData(int page) async {
+  final token = await getUserToken();
   final res = await http.get(
-    Uri.parse('$baseUrl/$transactionUrl'),
+    Uri.parse('$baseUrl/$transactionUrl?page=$page'),
     headers: {'Authorization': 'Bearer $token'},
   );
 
   if (res.statusCode == 200) {
     final json = jsonDecode(res.body);
+    print(json);
     List<Transaction> transactions = [];
 
     for (var transaction in json['transactions']) {
       transactions.add(Transaction.fromJson(transaction));
     }
-    return transactions;
+    return {"transactions": transactions, "nextPage": json['nextPage']};
   } else {
-    throw Exception('Failed to fetch user');
+    return null;
   }
 }
 
